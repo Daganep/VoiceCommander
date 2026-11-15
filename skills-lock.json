@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "skills": {
+    "vosk": {
+      "source": "framerslab/agentos-skills",
+      "sourceType": "github",
+      "skillPath": "registry/curated/vosk/SKILL.md",
+      "computedHash": "e42d6906b521342ed74bf16c2ff595774e486820e5b5ad99a13eac200d028c3b"
+    }
+  }
+}
