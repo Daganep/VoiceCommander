@@ -1,0 +1,97 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+.*.swp
+.*.swo
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  * https://github.com/pyinstaller/pyinstaller/wiki/FAQ#how-to-disable-python-detection
+#  * https://github.com/pyinstaller/pyinstaller/issues/10326
+#  * https://github.com/pyinstaller/pyinstaller/issues/10327
+#  * https://github.com/pyinstaller/pyinstaller/issues/10328
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.mypy_cache/
+.pytest_cache/
+.coverage
+
+# Visual Studio Code
+.vscode/
+
+# Windows
+*.tmp
+*.temp
+Thumbs.db
+Desktop.ini
+*.exe
+*.dll
+*.sys
+
+# Python Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+venv.*
+env.*
+
+# IDE
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# OS generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Configuration files
+config.yaml

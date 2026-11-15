@@ -38,11 +38,11 @@
   ```
 
 ### 1.2 Set up development environment
-- [ ] Create virtual environment
-- [ ] Install dependencies from requirements.txt
-- [ ] Configure Tesseract OCR and Russian language data
-- [ ] Download Vosk Russian model (~45 MB)
-- [ ] Test basic setup with sample commands
+- [x] Create virtual environment
+- [x] Install dependencies from requirements.txt
+- [x] Configure Tesseract OCR and Russian language data
+- [x] Download Vosk Russian model (~45 MB)
+- [x] Test basic setup with sample commands
 
 ### 1.3 Create configuration system
 - [ ] Implement config.yaml parser
