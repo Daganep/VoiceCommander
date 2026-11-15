@@ -1,0 +1,23 @@
+# Voice Commander Requirements
+
+# Speech recognition
+vosk==0.3.30
+pyttsx3==2.90
+
+# OCR
+pytesseract==0.3.10
+opencv-python==4.8.1.78
+
+# UI automation
+pywinauto==0.6.8
+pyautogui==0.9.53
+
+# Process management
+psutil==5.9.5
+
+# Configuration and utilities
+PyYAML==6.0.1
+pyside6==6.5.2
+
+# System integration
+pystray==0.19.3

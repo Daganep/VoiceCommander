@@ -1,0 +1,24 @@
+# Voice Commander Configuration
+
+# Language settings
+language: ru  # Russian language support
+
+# Voice engine settings
+voice_engine: sapi  # SAPI for text-to-speech
+
+# OCR engine settings
+ocr_engine: tesseract  # Tesseract OCR engine
+
+# Confirmation prompts
+confirmations: true  # Enable confirmation prompts for destructive actions
+
+# Push-to-talk key combination
+push_to_talk_key: "Ctrl+Alt+V"  # Default push-to-talk key combination
+
+# Wake-word support
+wake_word_enabled: false  # Enable wake-word activation
+wake_word: "командуй"  # Default wake word (Russian)
+
+# Logging settings
+log_level: "INFO"  # Logging level
+log_rotation: true  # Enable log rotation

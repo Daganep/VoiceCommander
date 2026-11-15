@@ -3,8 +3,8 @@
 ## 1. Project Setup and Foundation
 
 ### 1.1 Create project structure
-- [ ] Initialize repository
-- [ ] Create directory structure:
+- [x] Initialize repository
+- [x] Create directory structure:
   ```
   voice_commander/
     requirements.txt
