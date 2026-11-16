@@ -121,3 +121,36 @@ The application uses YAML configuration in `config.yaml` to control:
 - Confirmation prompts setting
 - Push-to-talk key combination
 - Wake-word activation support
+
+## Development Logging
+
+All development work should be documented in a structured format to maintain clear progress tracking and knowledge sharing. The following format should be used for development log entries:
+
+### Log Entry Format
+Each log entry should follow this structure:
+```
+YYYY-MM-DD - [Task/Feature] - [Brief Description]
+- Detailed explanation of what was accomplished
+- Any challenges encountered and how they were resolved
+- Code changes made (file names, key functions)
+- Testing performed
+- References to related issues or documentation
+```
+
+### Example Log Entry
+```
+2026-11-16 - Voice Recognition Integration - Implemented Vosk speech-to-text functionality with push-to-talk activation
+- Integrated Vosk library for offline speech recognition
+- Added push-to-talk key combination (Ctrl+Alt+V) 
+- Implemented wake-word detection capability
+- Created stt.py module with proper error handling
+- Tested with various audio input sources and noise conditions
+- Updated CLAUDE.md with documentation of new features
+```
+
+### Log Maintenance Guidelines
+- Log entries should be added after each significant development task or feature implementation
+- Entries should be written in Russian to match the project's default language
+- All code changes should be reflected in the log with specific file names and function details
+- Documentation updates should reference the corresponding CLAUDE.md modifications
+- Log entries should be concise yet comprehensive enough for other developers to understand progress

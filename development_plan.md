@@ -3,6 +3,8 @@
 ## Development Log
 For detailed development history, see: [development_log.md](development_log.md)
 
+**Note:** All entries in the development log must include timestamps in the format "HH:mm:ss DD.MM.YYYY" for each task completed.
+
 ## 1. Project Setup and Foundation
 
 ### 1.1 Create project structure
