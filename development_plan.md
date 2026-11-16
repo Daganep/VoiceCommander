@@ -1,5 +1,8 @@
 # Development Plan: Voice Commander for Windows (Offline)
 
+## Development Log
+For detailed development history, see: [development_log.md](development_log.md)
+
 ## 1. Project Setup and Foundation
 
 ### 1.1 Create project structure
@@ -45,8 +48,8 @@
 - [x] Test basic setup with sample commands
 
 ### 1.3 Create configuration system
-- [ ] Implement config.yaml parser
-- [ ] Define default settings for:
+- [x] Implement config.yaml parser
+- [x] Define default settings for:
   - Language (Russian)
   - Voice engine (SAPI)
   - OCR engine (Tesseract)
