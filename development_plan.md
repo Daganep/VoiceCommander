@@ -112,9 +112,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 ## 5. Window Management Module Development
 
 ### 5.1 Window control functionality
-- [ ] Implement window.py with pywinauto automation
-- [ ] Create functions for minimize, maximize, bring to front, close
-- [ ] Test with real Windows applications
+- [x] Implement window.py with pywinauto automation
+- [x] Create functions for minimize, maximize, bring to front, close
+- [x] Test with real Windows applications
 
 ### 5.2 Window state management
 - [ ] Add window focus and positioning controls
