@@ -117,9 +117,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 - [x] Test with real Windows applications
 
 ### 5.2 Window state management
-- [ ] Add window focus and positioning controls
-- [ ] Implement window state restoration
-- [ ] Test cross-application window management
+- [x] Add window focus and positioning controls
+- [x] Implement window state restoration
+- [x] Test cross-application window management
 
 ## 6. OCR Text Reading Module Development
 

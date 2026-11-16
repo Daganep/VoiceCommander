@@ -81,6 +81,33 @@ class Command:
                 app_name = self._extract_app_name()
                 from core.actions.close import close_application
                 return close_application(app_name)
+            elif self.schema.name == "maximize_window":
+                from core.actions.window import maximize_window
+                return maximize_window()
+            elif self.schema.name == "minimize_window":
+                from core.actions.window import minimize_window
+                return minimize_window()
+            elif self.schema.name == "restore_window":
+                from core.actions.window import restore_window
+                return restore_window()
+            elif self.schema.name == "bring_to_front":
+                from core.actions.window import bring_to_front
+                return bring_to_front()
+            elif self.schema.name == "read_screen_text":
+                from core.actions.screen_ocr import read_screen_text
+                return read_screen_text()
+            elif self.schema.name == "click_element":
+                # For click_element, we would need to extract the element text
+                # This is a simplified version - in practice this would be more sophisticated
+                element_text = self.raw_text.replace("кликнуть на", "").strip()
+                from core.actions.ui_click import click_element
+                return click_element(element_text)
+            elif self.schema.name == "type_text":
+                # For type_text, we would need to extract the text to type
+                # This is a simplified version - in practice this would be more sophisticated
+                element_text = self.raw_text.replace("ввести в поле", "").strip()
+                from core.actions.ui_type import type_text
+                return type_text(element_text)
             else:
                 return f"Выполнена команда: {self.schema.name}"
 
