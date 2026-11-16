@@ -1,40 +1,17 @@
 # Voice Commander for Windows
 
-Offline voice control application for Windows using Vosk and Tesseract OCR.
-
-## Overview
-
-Voice Commander is a Windows application that allows users to control their computer through voice commands without internet connectivity. It uses Vosk for speech recognition and Tesseract OCR for screen reading, enabling interaction with applications and UI elements through voice commands.
+Voice Commander is an offline voice control application for Windows that allows users to control their computer through voice commands without internet connectivity.
 
 ## Features
 
 - Offline speech-to-text using Vosk
-- Text-to-speech using SAPI
+- Text-to-speech with SAPI engine
 - Application launching and closing
-- Window management (minimize, maximize, bring to front, close)
+- Window management (minimize, maximize, bring to front)
 - UI element interaction through OCR-based clicking and text input
 - Screen reading functionality using OCR
 - Push-to-talk keyboard shortcut and wake-word support
-
-## Configuration
-
-The application uses a YAML configuration file (`config.yaml`) to control various settings:
-
-### Configuration Options
-
-- `language`: Language setting (default: 'ru' for Russian)
-- `voice_engine`: Voice engine selection (default: 'sapi')
-- `ocr_engine`: OCR engine choice (default: 'tesseract')
-- `confirmations`: Enable confirmation prompts for destructive actions (default: true)
-- `push_to_talk_key`: Push-to-talk key combination (default: 'Ctrl+Alt+V')
-- `wake_word_enabled`: Enable wake-word activation (default: false)
-- `wake_word`: Default wake word (default: 'командуй')
-- `log_level`: Logging level (default: 'INFO')
-- `log_rotation`: Enable log rotation (default: true)
-
-### Configuration File Location
-
-The configuration file is located at `config.yaml` in the project root directory. If the file doesn't exist when the application starts, it will be automatically created with default values.
+- Configuration system with YAML settings
 
 ## Installation
 
@@ -50,7 +27,7 @@ The configuration file is located at `config.yaml` in the project root directory
 
 3. Install dependencies:
    ```
-   pip install -r requirements.md
+   pip install -r requirements.txt
    ```
 
 4. Install Tesseract OCR with Russian language data:
@@ -58,32 +35,46 @@ The configuration file is located at `config.yaml` in the project root directory
    winget install TesseractOCR
    ```
 
-5. Download Vosk Russian model (~45 MB) and extract to `models/` directory
+5. Download Vosk Russian model and extract to `models/` directory
 
 ## Usage
 
-Run the application:
+### Running the Application
+
+To run in voice mode (default):
 ```
 python voice_commander.py
 ```
 
-For testing without microphone:
+To run in text testing mode:
 ```
 python voice_commander.py --text
 ```
 
-## Development
+### Text Interface Commands
 
-The project follows a modular architecture organized by functionality:
+When running in text mode, you can enter commands directly:
+
+- `Запусти [приложение]` - запустить приложение (e.g., "Запусти блокнот")
+- `Закрой [приложение]` - закрыть приложение (e.g., "Закрой браузер")
+- `Сверни [окно]` - свернуть окно (e.g., "Сверни Chrome")
+- `Разверни [окно]` - развернуть окно (e.g., "Разверни Notepad")
+- `Прибери [окно]` - принести окно вперёд (e.g., "Прибери VS Code")
+- `Кликни [текст элемента]` - кликнуть по элементу интерфейса (e.g., "Кликни OK")
+- `Введи [текст элемента] [текст для ввода]` - ввести текст в поле (e.g., "Введи логин admin")
+- `Прочти [регион]` - прочитать текст с экрана (e.g., "Прочти заголовок")
+- `Помощь` - показать справку
+
+## Project Structure
 
 ```
 voice_commander/
-├── requirements.md          # Project dependencies
-├── config.yaml              # Configuration file
-├── voice_commander.py       # Main entry point and main loop
+├── requirements.txt          # Project dependencies
+├── config.yaml               # Configuration file
+├── voice_commander.py        # Main entry point and main loop
 ├── core/
 │   ├── speech/
-│   │   ├── stt.py           # Vosk speech-to-text implementation
+│   │   ├── stt.py            # Vosk speech-to-text implementation
 │   │   └── tts.py           # SAPI text-to-speech implementation
 │   ├── commands/
 │   │   ├── parser.py        # Command parsing logic
@@ -103,9 +94,14 @@ voice_commander/
 │   │   ├── registry.py      # Application alias mapping
 │   │   └── processes.py     # Process management with psutil
 │   ├── feedback.py          # Unified output: speak + log
-│   └── config.py            # Configuration system
-└── models/                  # Vosk model directory (not in repo)
+│   └── logger.py            # Logging setup with rotation
+├── models/                   # Vosk model directory (not in repo)
+└── logs/                     # Log files directory (not in repo)
 ```
+
+## Development
+
+See `development_plan.md` for the complete development plan and progress tracking.
 
 ## License
 

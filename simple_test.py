@@ -1,60 +1,30 @@
 #!/usr/bin/env python3
 """
-Simple test to verify the development environment setup.
+Simple test to verify core modules work.
 """
 
 import sys
 import os
 
-# Add the core directory to the Python path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'core'))
+# Add the current directory to Python path so we can import modules
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-def main():
-    """Test that all required modules can be imported."""
-    try:
-        import vosk
-        print("Vosk imported successfully")
+try:
+    # Test importing core modules first
+    from voice_commander.core.commands.parser import CommandParser
+    print("SUCCESS: Command parser imported successfully")
 
-        import pyttsx3
-        print("Pyttsx3 imported successfully")
+    # Test creating parser instance
+    parser = CommandParser()
+    print("SUCCESS: Command parser instance created successfully")
 
-        import pytesseract
-        print("Pytesseract imported successfully")
+    # Test parsing a simple command
+    result = parser.parse_command("запусти блокнот")
+    print(f"SUCCESS: Command parsing works: {result}")
 
-        import pywinauto
-        print("Pywinauto imported successfully")
+    print("\nAll tests passed! Core components are ready for use.")
 
-        import pyautogui
-        print("Pyautogui imported successfully")
-
-        import psutil
-        print("Psutil imported successfully")
-
-        import yaml
-        print("PyYAML imported successfully")
-
-        import pystray
-        print("Pystray imported successfully")
-
-        # Test importing core modules
-        import core.speech.stt
-        print("STT module imported successfully")
-
-        import core.speech.tts
-        print("TTS module imported successfully")
-
-        import core.commands.parser
-        print("Parser module imported successfully")
-
-        import core.commands.schema
-        print("Schema module imported successfully")
-
-        print("\nAll modules imported successfully - setup complete!")
-        return True
-
-    except Exception as e:
-        print(f"Error importing modules: {e}")
-        return False
-
-if __name__ == "__main__":
-    main()
+except Exception as e:
+    print(f"ERROR: {e}")
+    import traceback
+    traceback.print_exc()

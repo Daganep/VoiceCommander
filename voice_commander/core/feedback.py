@@ -34,7 +34,16 @@ class Feedback:
             self.tts.speak(message)
 
         # Log the message
-        self.logger.log(level, message)
+        if level == "DEBUG":
+            self.logger.debug(message)
+        elif level == "INFO":
+            self.logger.info(message)
+        elif level == "WARNING":
+            self.logger.warning(message)
+        elif level == "ERROR":
+            self.logger.error(message)
+        else:
+            self.logger.info(message)
 
     def speak(self, message):
         """
@@ -54,7 +63,16 @@ class Feedback:
             message (str): Message to log
             level (str): Log level
         """
-        self.logger.log(level, message)
+        if level == "DEBUG":
+            self.logger.debug(message)
+        elif level == "INFO":
+            self.logger.info(message)
+        elif level == "WARNING":
+            self.logger.warning(message)
+        elif level == "ERROR":
+            self.logger.error(message)
+        else:
+            self.logger.info(message)
 
     def info(self, message):
         """
