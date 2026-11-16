@@ -104,6 +104,19 @@ The development follows a staged approach outlined in `development_plan.md`:
 - All modules return results that are processed by the feedback system for speaking and logging
 - Error handling is centralized with global try/except in main loop to prevent crashes from single command failures
 
+## Vosk Integration Details
+
+The STT (Speech-to-Text) module has been successfully implemented with:
+
+1. **Offline Recognition**: Uses Vosk library for fully offline speech recognition without internet connectivity
+2. **Russian Language Support**: Configured for Russian language recognition using the appropriate model
+3. **Push-to-Talk Activation**: Default key combination Ctrl+Alt+V activates voice recognition
+4. **Wake-word Support**: Basic implementation with configuration support for wake-word activation
+5. **Error Handling**: Robust error handling with logging for model loading and recognition failures
+6. **Audio Management**: Proper audio stream management with device detection capabilities
+
+The Vosk integration is located in `core/speech/stt.py` and follows the project's coding patterns and conventions.
+
 ## Testing Strategy
 
 1. Unit tests for individual components (parser, actions)

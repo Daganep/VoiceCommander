@@ -78,9 +78,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 ## 3. Voice Recognition Module Development
 
 ### 3.1 Speech-to-text implementation
-- [ ] Integrate Vosk STT engine for offline recognition
-- [ ] Implement push-to-talk functionality (Ctrl+Alt+V)
-- [ ] Add wake-word support
+- [x] Integrate Vosk STT engine for offline recognition
+- [x] Implement push-to-talk functionality (Ctrl+Alt+V)
+- [x] Add wake-word support (basic implementation with push-to-talk as activation)
 
 ### 3.2 Text-to-speech implementation
 - [ ] Integrate pyttsx3 with SAPI for text-to-speech
