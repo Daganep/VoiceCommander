@@ -129,6 +129,18 @@ The TTS (Text-to-Speech) module has been successfully implemented with:
 
 The TTS integration is located in `core/speech/tts.py` and follows the project's coding patterns and conventions.
 
+## TTS Integration Details
+
+The TTS (Text-to-Speech) module has been successfully implemented with:
+
+1. **pyttsx3 Integration**: Uses pyttsx3 library for text-to-speech conversion
+2. **SAPI Engine**: Configured to use Windows SAPI engine for high-quality voice output
+3. **Russian Language Support**: Automatically selects Russian voices when available
+4. **Voice Customization**: Supports configurable speech rate, volume, and voice selection
+5. **Error Handling**: Robust error handling with logging for synthesis failures
+
+The TTS integration is located in `core/speech/tts.py` and follows the project's coding patterns and conventions.
+
 ## Testing Strategy
 
 1. Unit tests for individual components (parser, actions)

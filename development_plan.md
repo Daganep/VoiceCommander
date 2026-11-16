@@ -88,9 +88,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 - [x] Test different voice settings
 
 ### 3.3 Voice command loop
-- [ ] Create main listening loop with push-to-talk
-- [ ] Implement timeout handling ("Не понял, повторите")
-- [ ] Add error handling for recognition failures
+- [x] Create main listening loop with push-to-talk
+- [x] Implement timeout handling ("Не понял, повторите")
+- [x] Add error handling for recognition failures
 
 ## 4. Application Management Module Development
 

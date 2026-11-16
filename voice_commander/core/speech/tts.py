@@ -78,3 +78,16 @@ class TTS:
             voice_id (str): Voice identifier
         """
         self.engine.setProperty('voice', voice_id)
+
+
+def get_tts_instance(voice_engine="sapi"):
+    """
+    Factory function to create and return a TTS instance.
+
+    Args:
+        voice_engine (str): Voice engine to use ("sapi" for Windows)
+
+    Returns:
+        TTS: Initialized TTS instance
+    """
+    return TTS(voice_engine=voice_engine)

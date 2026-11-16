@@ -102,3 +102,33 @@
 - `development_plan.md` (marked section 3.2 as completed)
 
 ### Status: ✅ COMPLETED
+
+## 2026-11-16 - Section 3.3 Implementation
+**Completed:** Section 3.3 - Create main listening loop with push-to-talk, timeout handling and error handling
+**Time:** 18:00:00 16.11.2026
+
+### Tasks Performed:
+1. Implemented `voice_commander/core/speech/stt.py` module:
+   - Created main voice command loop functionality
+   - Added push-to-talk support (Ctrl+Alt+V) to activate listening
+   - Implemented timeout handling with "Не понял, повторите" message
+   - Added comprehensive error handling for recognition failures
+   - Integrated with existing project architecture and coding patterns
+   **Time:** 18:00:00 16.11.16
+
+2. Enhanced `voice_commander.py` main entry point:
+   - Implemented the main voice command loop in VoiceCommander class
+   - Added proper initialization of all components (STT, TTS, parser)
+   - Created callback system for handling recognized speech
+   **Time:** 18:30:00 16.11.16
+
+3. Updated documentation:
+   - Marked section 3.3 as completed in `development_plan.md` with checkmarks
+   **Time:** 18:45:00 16.11.16
+
+### Files Created/Modified:
+- `voice_commander/core/speech/stt.py`
+- `voice_commander.py`
+- `development_plan.md` (marked section 3.3 as completed)
+
+### Status: ✅ COMPLETED

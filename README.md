@@ -4,18 +4,72 @@ Voice Commander is an offline voice control application for Windows that allows 
 
 ## Features
 
-- **Offline Speech Recognition**: Uses Vosk for fully offline speech-to-text processing
-- **Russian Language Support**: Pre-configured for Russian language recognition
-- **Push-to-Talk Activation**: Use Ctrl+Alt+V to activate voice recognition
-- **Wake-word Support**: Configurable wake-word detection (basic implementation)
-- **Application Control**: Launch and close applications
-- **Window Management**: Minimize, maximize, bring to front, and close windows
-- **OCR-based UI Interaction**: Click buttons and type text using screen reading
-- **Text-to-Speech Feedback**: Voice feedback for commands and results
+- **Offline Operation**: Fully offline speech recognition using Vosk
+- **Voice Control**: Control applications, windows, and UI elements with voice commands
+- **Text-to-Speech**: Voice feedback for commands and results using SAPI
+- **OCR Integration**: Screen reading and UI element interaction using Tesseract OCR
+- **Push-to-Talk**: Activate voice recognition with Ctrl+Alt+V key combination
+- **Cross-Platform**: Designed specifically for Windows operating system
 
-## Architecture
+## Installation
 
-The application follows a modular architecture:
+### Prerequisites
+
+1. Python 3.8 or higher
+2. Windows operating system (required for pywin32, pywinauto)
+3. Tesseract OCR with Russian language data installed via winget
+4. Vosk Russian model (~45 MB) downloaded to models/ directory
+
+### Setup Steps
+
+1. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   ```
+
+2. Activate the virtual environment:
+   ```bash
+   venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Install Tesseract OCR with Russian language data:
+   ```bash
+   winget install TesseractOCR
+   ```
+
+5. Download Vosk Russian model and extract to models/ directory
+
+## Usage
+
+### Running the Application
+
+- **Voice Mode**: `python voice_commander.py`
+  - Use Ctrl+Alt+V to activate voice recognition
+  - Speak commands like "запустить приложение браузер" or "закрыть приложение блокнот"
+
+- **Text Mode**: `python voice_commander.py --text`
+  - Test commands without audio input
+  - Type commands directly in the console
+
+### Available Commands
+
+- `помощь` - Show help information
+- `запустить приложение [имя]` - Launch an application by name
+- `закрыть приложение [имя]` - Close an application
+- `максимизировать окно` - Maximize active window
+- `минимизировать окно` - Minimize active window
+- `восстановить окно` - Restore active window
+- `перевести окно в фокус` - Bring active window to front
+- `прочитать текст с экрана` - Read text from screen using OCR
+- `кликнуть на [текст]` - Click on UI element with matching text
+- `ввести в поле [текст]` - Type text into a field
+
+## Project Structure
 
 ```
 voice_commander/
@@ -49,93 +103,15 @@ voice_commander/
 └── logs/                     # Log files directory (not in repo)
 ```
 
-## Installation
-
-1. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   ```
-
-2. Activate the virtual environment:
-   ```bash
-   venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Install Tesseract OCR with Russian language data:
-   ```bash
-   winget install TesseractOCR
-   ```
-
-5. Download Vosk Russian model (~45 MB) and extract to `models/` directory
-
-## Usage
-
-### Running the Application
-
-- **Voice Mode** (default): `python voice_commander.py`
-- **Text Mode** (for testing): `python voice_commander.py --text`
-
-### Voice Commands
-
-1. Press **Ctrl+Alt+V** to activate push-to-talk
-2. Speak your command clearly
-3. The system will process and execute the command
-
-### Configuration
-
-The application uses `config.yaml` for configuration:
-
-```yaml
-# Voice Commander Configuration
-
-# Language settings
-language: ru  # Russian language support
-
-# Voice engine settings
-voice_engine: sapi  # SAPI for text-to-speech
-
-# OCR engine settings
-ocr_engine: tesseract  # Tesseract OCR engine
-
-# Confirmation prompts
-confirmations: true  # Enable confirmation prompts for destructive actions
-
-# Push-to-talk key combination
-push_to_talk_key: "Ctrl+Alt+V"  # Default push-to-talk key combination
-
-# Wake-word support
-wake_word_enabled: false  # Enable wake-word activation
-wake_word: "командуй"  # Default wake word (Russian)
-
-# Logging settings
-log_level: "INFO"  # Logging level
-log_rotation: true  # Enable log rotation
-```
-
 ## Development
 
-### STT Module Implementation
-
-The STT module (`core/speech/stt.py`) provides:
-
-- Vosk integration for offline speech recognition
-- Push-to-talk functionality with Ctrl+Alt+V by default
-- Wake-word detection support (basic implementation)
-- Audio device detection and management
-- Proper error handling and logging
-
-### Testing
-
-Run tests with:
-```bash
-python test_stt.py
-python test_stt_integration.py
-```
+The development follows a staged approach outlined in `development_plan.md`:
+1. Foundation: Project setup, basic logging, text interface
+2. Voice recognition: Vosk integration, push-to-talk functionality, wake-word functionality
+3. Application management: Launch/close functions
+4. Window control: pywinauto integration
+5. OCR functionality: Screen reading and UI interaction
+6. Polishing: Error handling, confirmations, tray icon
 
 ## License
 

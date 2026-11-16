@@ -216,3 +216,21 @@ class STT:
                 pass
 
         return devices
+
+
+def get_stt_instance(model_path="models", config=None):
+    """
+    Factory function to create and return an STT instance.
+
+    Args:
+        model_path (str): Path to the Vosk model directory
+        config (dict): Configuration dictionary
+
+    Returns:
+        STT: Initialized STT instance
+    """
+    stt = STT(model_path=model_path, config=config)
+    if stt.load_model():
+        return stt
+    else:
+        raise RuntimeError("Failed to initialize STT: could not load model")
