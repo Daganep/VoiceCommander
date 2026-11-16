@@ -95,9 +95,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 ## 4. Application Management Module Development
 
 ### 4.1 Launch applications
-- [ ] Implement launch.py with alias registry
-- [ ] Test application launching with different programs
-- [ ] Verify proper process management
+- [x] Implement launch.py with alias registry
+- [x] Test application launching with different programs
+- [x] Verify proper process management
 
 ### 4.2 Close applications
 - [ ] Implement close.py with psutil process termination

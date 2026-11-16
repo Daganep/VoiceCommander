@@ -75,10 +75,12 @@ class Command:
                 return "Помощь показана"
             elif self.schema.name == "launch_app":
                 app_name = self._extract_app_name()
-                return f"Запуск приложения: {app_name}"
+                from core.actions.launch import launch_application
+                return launch_application(app_name)
             elif self.schema.name == "close_app":
                 app_name = self._extract_app_name()
-                return f"Закрытие приложения: {app_name}"
+                from core.actions.close import close_application
+                return close_application(app_name)
             else:
                 return f"Выполнена команда: {self.schema.name}"
 
