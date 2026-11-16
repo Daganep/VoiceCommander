@@ -83,9 +83,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 - [x] Add wake-word support (basic implementation with push-to-talk as activation)
 
 ### 3.2 Text-to-speech implementation
-- [ ] Integrate pyttsx3 with SAPI for text-to-speech
-- [ ] Implement voice feedback for commands and results
-- [ ] Test different voice settings
+- [x] Integrate pyttsx3 with SAPI for text-to-speech
+- [x] Implement voice feedback for commands and results
+- [x] Test different voice settings
 
 ### 3.3 Voice command loop
 - [ ] Create main listening loop with push-to-talk
