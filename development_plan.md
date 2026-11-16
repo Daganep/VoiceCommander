@@ -100,9 +100,14 @@ For detailed development history, see: [development_log.md](development_log.md)
 - [x] Verify proper process management
 
 ### 4.2 Close applications
-- [ ] Implement close.py with psutil process termination
-- [ ] Add confirmation prompts for destructive actions
-- [ ] Test closing various types of applications
+- [x] Implement close.py with psutil process termination
+- [x] Add confirmation prompts for destructive actions
+- [x] Test closing various types of applications
+
+### 4.3 Command execution system
+- [x] Implement command executor to map commands to actions
+- [x] Fix text interface to properly execute commands
+- [x] Update main voice commander loop to use command execution
 
 ## 5. Window Management Module Development
 

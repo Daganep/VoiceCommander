@@ -103,6 +103,7 @@ The development follows a staged approach outlined in `development_plan.md`:
 - Follows unified feedback pattern through `feedback.py` module
 - All modules return results that are processed by the feedback system for speaking and logging
 - Error handling is centralized with global try/except in main loop to prevent crashes from single command failures
+- Command execution system properly maps parsed commands to their action implementations
 
 ## Vosk Integration Details
 

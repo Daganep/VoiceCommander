@@ -3,6 +3,7 @@ Command parser for voice commander.
 """
 
 from .schema import CommandSchema
+from .executor import CommandExecutor
 
 class CommandParser:
     """Parse spoken commands into Command objects."""
@@ -10,16 +11,17 @@ class CommandParser:
     def __init__(self):
         """Initialize the command parser."""
         self.schema = CommandSchema()
+        self.executor = CommandExecutor()
 
     def parse_command(self, text):
         """
-        Parse a command from text.
+        Parse a command from text and execute it.
 
         Args:
             text (str): Text to parse
 
         Returns:
-            dict: Parsed command with type and parameters
+            dict: Result of command execution
         """
         # Normalize input
         text = text.strip().lower()
@@ -27,15 +29,14 @@ class CommandParser:
         # Check for known commands
         for command_def in self.schema.commands:
             if self._matches_command(text, command_def):
-                return {
-                    'type': command_def['type'],
-                    'params': self._extract_params(text, command_def)
-                }
+                params = self._extract_params(text, command_def)
+                # Execute the command and return result
+                return self.executor.execute_command(command_def['type'], params)
 
-        # If no command matched, return unknown command
+        # If no command matched, return error
         return {
-            'type': 'unknown',
-            'params': {'text': text}
+            'success': False,
+            'message': f'Unknown command: {text}'
         }
 
     def _matches_command(self, text, command_def):
@@ -69,10 +70,29 @@ class CommandParser:
         """
         params = {}
 
-        # Extract parameters based on the command definition
-        for param_name, param_info in command_def.get('params', {}).items():
-            # For now, we'll just return the text as a placeholder
-            # In a more advanced implementation, this would extract specific values
-            params[param_name] = text
+        # Extract meaningful parameters based on the command type
+        if command_def['type'] in ['launch', 'close']:
+            # For launch/close commands, extract the application name after the verb
+            # This is a simple implementation - a more robust version would use NLP
+            app_name = text.replace('запусти ', '').replace('открой ', '').replace('закрой ', '').replace('закройте ', '')
+            app_name = app_name.strip()
+            params['app_name'] = app_name if app_name else None
+
+        elif command_def['type'] in ['minimize', 'maximize', 'bring_to_front']:
+            # For window commands, extract the window title if specified
+            # This is a placeholder - more sophisticated parsing would be needed
+            params['window_title'] = None
+
+        elif command_def['type'] in ['click', 'type_text']:
+            # For UI interaction commands, extract element text
+            params['element_text'] = text
+
+        elif command_def['type'] == 'read_screen':
+            # For screen reading, we might extract region information
+            params['region'] = None
+
+        else:
+            # Default: pass the full text
+            params['text'] = text
 
         return params

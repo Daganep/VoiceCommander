@@ -48,11 +48,10 @@ def main():
 
             if command_text:
                 # Parse and execute the command
-                command = parser.parse_command(command_text)
+                result = parser.parse_command(command_text)
 
-                if command:
-                    result = command.execute()
-                    speak_and_log(f"Выполнено: {result}")
+                if result:
+                    speak_and_log(f"Выполнено: {result['message']}")
                 else:
                     logger.warning(f"Unknown command: {command_text}")
                     speak_and_log("Не понял, повторите")

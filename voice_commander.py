@@ -65,15 +65,12 @@ class VoiceCommander:
 
             logger.info(f"Processing command: '{text}'")
 
-            # Parse the command
-            command = self.parser.parse_command(text)
+            # Parse and execute the command
+            result = self.parser.parse_command(text)
 
-            if command:
-                # Execute the command and get result
-                result = command.execute()
-
+            if result:
                 # Provide feedback about the result
-                speak_and_log(f"Выполнено: {result}")
+                speak_and_log(f"Выполнено: {result['message']}")
             else:
                 # Unknown command
                 logger.warning(f"Unknown command: {text}")
