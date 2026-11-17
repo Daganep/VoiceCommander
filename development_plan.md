@@ -124,9 +124,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 ## 6. OCR Text Reading Module Development
 
 ### 6.1 Screen capture and OCR processing
-- [ ] Implement screen_ocr.py with Tesseract/PaddleOCR
-- [ ] Create screenshot functionality
-- [ ] Add text extraction from screen regions
+- [x] Implement screen_ocr.py with Tesseract/PaddleOCR
+- [x] Create screenshot functionality
+- [x] Add text extraction from screen regions
 
 ### 6.2 OCR-based UI element detection
 - [ ] Develop OCR search for button labels and field names
