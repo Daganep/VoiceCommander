@@ -21,13 +21,14 @@ class CommandExecutor:
         self.ui_typer = UITyper()
         self.ui_clicker = UIClicker()
 
-    def execute_command(self, command_type, params):
+    def execute_command(self, command_type, params, feedback=None):
         """
         Execute a command based on its type and parameters.
 
         Args:
             command_type (str): Type of command to execute
             params (dict): Parameters for the command
+            feedback (Feedback): Feedback system for user interaction
 
         Returns:
             dict: Result with success status and message
@@ -55,12 +56,12 @@ class CommandExecutor:
 
             elif command_type == 'click':
                 element_text = params.get('element_text', '')
-                return self.ui_clicker.click_element(element_text)
+                return self.ui_clicker.click_element(element_text, feedback=feedback)
 
             elif command_type == 'type_text':
                 element_text = params.get('element_text', '')
                 text_to_type = params.get('text_to_type', '')
-                return self.ui_typer.type_into_field(element_text, text_to_type)
+                return self.ui_typer.type_into_field(element_text, text_to_type, feedback=feedback)
 
             elif command_type == 'read_screen':
                 region = params.get('region', None)

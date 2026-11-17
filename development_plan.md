@@ -148,9 +148,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 ## 8. Polishing and Enhancement
 
 ### 8.1 Handle ambiguous commands
-- [ ] Implement conflict resolution for multiple OCR matches
-- [ ] Add "say options" functionality when ambiguity exists
-- [ ] Improve command parsing for edge cases
+- [x] Implement conflict resolution for multiple OCR matches
+- [x] Add "say options" functionality when ambiguity exists
+- [x] Improve command parsing for edge cases
 
 ### 8.2 Confirmation prompts
 - [ ] Enhance confirmation system for destructive actions

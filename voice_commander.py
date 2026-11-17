@@ -19,7 +19,7 @@ try:
     from core.speech.stt import get_stt_instance
     from core.speech.tts import get_tts_instance
     from core.commands.parser import CommandParser
-    from core.feedback import speak_and_log
+    from core.feedback import Feedback
     from core.logger import get_logger
 
     logger = get_logger(__name__)
@@ -36,6 +36,7 @@ class VoiceCommander:
         self.stt = None
         self.tts = None
         self.parser = None
+        self.feedback = None
         self.is_running = False
 
     def initialize(self):
@@ -45,6 +46,8 @@ class VoiceCommander:
             self.stt = get_stt_instance()
             self.tts = get_tts_instance()
             self.parser = CommandParser()
+            self.feedback = Feedback()
+            self.feedback.set_tts(self.tts)
 
             logger.info("Voice Commander initialized successfully")
 
@@ -65,20 +68,20 @@ class VoiceCommander:
 
             logger.info(f"Processing command: '{text}'")
 
-            # Parse and execute the command
-            result = self.parser.parse_command(text)
+            # Parse and execute the command with feedback system
+            result = self.parser.parse_command(text, self.feedback)
 
             if result:
                 # Provide feedback about the result
-                speak_and_log(f"Выполнено: {result['message']}")
+                self.feedback.speak_and_log(f"Выполнено: {result['message']}")
             else:
                 # Unknown command
                 logger.warning(f"Unknown command: {text}")
-                speak_and_log("Не понял, повторите")
+                self.feedback.speak_and_log("Не понял, повторите")
 
         except Exception as e:
             logger.error(f"Error processing command '{text}': {e}")
-            speak_and_log("Произошла ошибка при выполнении команды")
+            self.feedback.speak_and_log("Произошла ошибка при выполнении команды")
 
     def voice_loop(self):
         """
@@ -93,7 +96,7 @@ class VoiceCommander:
         try:
             # This will start listening in a separate thread
             # For now, we'll just show that the system is ready to listen
-            speak_and_log("Готов к работе. Нажмите Ctrl+Alt+V для активации")
+            self.feedback.speak_and_log("Готов к работе. Нажмите Ctrl+Alt+V для активации")
 
             # Since we're not actually implementing the push-to-talk key handling here,
             # we'll just demonstrate how it would work in a real implementation
@@ -113,7 +116,7 @@ class VoiceCommander:
 
         except KeyboardInterrupt:
             logger.info("Voice command loop interrupted by user")
-            speak_and_log("Завершение работы")
+            self.feedback.speak_and_log("Завершение работы")
         except Exception as e:
             logger.error(f"Error in voice loop: {e}")
             raise
@@ -127,7 +130,7 @@ class VoiceCommander:
 
         except Exception as e:
             logger.error(f"Failed to start Voice Commander: {e}")
-            speak_and_log("Ошибка при запуске системы")
+            self.feedback.speak_and_log("Ошибка при запуске системы")
             raise
 
 def main():

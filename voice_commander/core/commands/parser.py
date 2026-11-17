@@ -13,12 +13,13 @@ class CommandParser:
         self.schema = CommandSchema()
         self.executor = CommandExecutor()
 
-    def parse_command(self, text):
+    def parse_command(self, text, feedback=None):
         """
         Parse a command from text and execute it.
 
         Args:
             text (str): Text to parse
+            feedback (Feedback): Feedback system for user interaction
 
         Returns:
             dict: Result of command execution
@@ -31,7 +32,7 @@ class CommandParser:
             if self._matches_command(text, command_def):
                 params = self._extract_params(text, command_def)
                 # Execute the command and return result
-                return self.executor.execute_command(command_def['type'], params)
+                return self.executor.execute_command(command_def['type'], params, feedback)
 
         # If no command matched, return error
         return {
@@ -85,7 +86,15 @@ class CommandParser:
 
         elif command_def['type'] == 'click':
             # For UI interaction commands, extract element text
-            params['element_text'] = text
+            # Remove the command prefix and any additional words to get the element text
+            if 'кликни' in text:
+                element_text = text.replace('кликни ', '')
+            elif 'нажми' in text:
+                element_text = text.replace('нажми ', '')
+            else:
+                element_text = text
+
+            params['element_text'] = element_text.strip()
 
         elif command_def['type'] == 'type_text':
             # For type text commands, we need to parse the element text and the text to type
@@ -101,6 +110,21 @@ class CommandParser:
                     else:
                         # Fallback - just get the text after "ввести"
                         params['element_text'] = parts[1].strip()
+                        params['text_to_type'] = ''
+                else:
+                    params['element_text'] = ''
+                    params['text_to_type'] = ''
+            elif 'напиши' in text and 'текст' in text:
+                # Alternative pattern: "напиши текст [текст] в [поле]"
+                parts = text.split('напиши текст')
+                if len(parts) > 1:
+                    text_part = parts[1].split('в ')
+                    if len(text_part) > 1:
+                        params['text_to_type'] = text_part[0].strip()
+                        params['element_text'] = text_part[1].strip()
+                    else:
+                        # Fallback
+                        params['element_text'] = ''
                         params['text_to_type'] = ''
                 else:
                     params['element_text'] = ''

@@ -237,3 +237,14 @@ YYYY-MM-DD - [Task/Feature] - [Brief Description]
 - Added error handling for missing UI elements with fallback to approximate matching
 - Integrated with existing OCR system and pyautogui for mouse actions
 - Updated CLAUDE.md with documentation of new features
+
+### Ambiguous Command Handling
+2026-11-17 - Ambiguous Command Handling - Implemented conflict resolution for multiple OCR matches and "say options" functionality
+- Enhanced UIClicker in voice_commander/core/actions/ui_click.py to detect when multiple UI elements match a search term
+- Added _handle_ambiguous_command() method to inform users about multiple matching elements
+- Enhanced UITyper in voice_commander/core/actions/ui_type.py with similar ambiguity handling
+- Updated CommandParser in voice_commander/core/commands/parser.py to pass feedback system to UI interaction modules
+- Modified CommandExecutor in voice_commander/core/commands/executor.py to accept and pass feedback parameter
+- Updated main voice_commander.py to initialize and pass Feedback system throughout the application
+- Implemented proper handling of ambiguous commands when multiple OCR matches are found
+- Added functionality to list matching options when ambiguity exists for better user experience

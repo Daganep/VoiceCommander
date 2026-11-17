@@ -5,6 +5,7 @@ UI element clicking functionality using OCR.
 import pyautogui
 import time
 from ..ui.ocr import OCR
+from ..actions.screen_ocr import ScreenOCR
 
 class UIClicker:
     """Click UI elements identified by OCR."""
@@ -13,34 +14,50 @@ class UIClicker:
         """Initialize the UI clicker."""
         self.ocr = OCR()
 
-    def click_element(self, element_text, confidence_threshold=0.8):
+    def click_element(self, element_text, confidence_threshold=0.8, feedback=None):
         """
         Click on a UI element identified by text.
 
         Args:
             element_text (str): Text that identifies the UI element
             confidence_threshold (float): Minimum confidence level for matching text
+            feedback (Feedback): Feedback system to provide user information
 
         Returns:
             dict: Result with success status and message
         """
         try:
-            # Use OCR to find the element on screen
-            # First, let's try to get coordinates using the existing method
-            coordinates = self.ocr.find_text_coordinates(element_text)
+            # First, let's check if there are multiple matches for this text
+            screen_ocr = ScreenOCR()
+            result = screen_ocr.find_all_text_on_screen(element_text)
 
-            if coordinates:
-                x, y = coordinates
+            # Check if we found multiple matches
+            if result['success'] and len(result['items']) > 1:
+                # Handle ambiguity - let the user know about multiple options
+                if feedback:
+                    self._handle_ambiguous_command(element_text, result['items'], feedback)
+
+                return {
+                    'success': False,
+                    'message': f'Found {len(result["items"])} matches for "{element_text}". Please be more specific.',
+                    'ambiguous': True,
+                    'options': result['items']
+                }
+            elif result['success'] and len(result['items']) == 1:
+                # Single match - proceed with click
+                item = result['items'][0]
+                x, y = item['coordinates']
                 # Add a small delay to ensure system is ready
                 time.sleep(0.1)
                 pyautogui.click(x, y)
                 return {
                     'success': True,
                     'message': f'Clicked on element: {element_text} at ({x}, {y})',
-                    'coordinates': (x, y)
+                    'coordinates': (x, y),
+                    'item': item
                 }
             else:
-                # If exact match not found, try to find similar text
+                # Try to find similar text
                 result = self._find_similar_text(element_text)
                 if result['success']:
                     x, y = result['coordinates']
@@ -66,6 +83,28 @@ class UIClicker:
                 'error': str(e)
             }
 
+    def _handle_ambiguous_command(self, element_text, items, feedback):
+        """
+        Handle ambiguous command by informing user about multiple matches.
+
+        Args:
+            element_text (str): The text that was searched for
+            items (list): List of matching items found
+            feedback (Feedback): Feedback system to provide user information
+        """
+        message = f'Найдено несколько элементов с текстом "{element_text}". '
+        message += 'Выберите один из вариантов:'
+
+        # Add options with their coordinates for better context
+        for i, item in enumerate(items[:5]):  # Limit to first 5 items
+            x, y = item['coordinates']
+            message += f' {i+1}. "{item["text"]}" в координатах ({x}, {y})'
+
+        if len(items) > 5:
+            message += f' и еще {len(items) - 5} вариантов.'
+
+        feedback.speak_and_log(message, "WARNING")
+
     def _find_similar_text(self, target_text, max_distance=3):
         """
         Find text that is similar to the target text.
@@ -80,8 +119,6 @@ class UIClicker:
         try:
             # This approach will be more robust - we'll look at all text on screen
             # and find the closest match
-            from ..actions.screen_ocr import ScreenOCR
-
             screen_ocr = ScreenOCR()
             result = screen_ocr.find_all_text_on_screen()
 
