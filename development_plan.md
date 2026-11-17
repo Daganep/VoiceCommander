@@ -129,9 +129,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 - [x] Add text extraction from screen regions
 
 ### 6.2 OCR-based UI element detection
-- [ ] Develop OCR search for button labels and field names
-- [ ] Test accuracy with various UI elements
-- [ ] Implement coordinate calculation from OCR results
+- [x] Develop OCR search for button labels and field names
+- [x] Test accuracy with various UI elements
+- [x] Implement coordinate calculation from OCR results
 
 ## 7. UI Interaction Module Development
 

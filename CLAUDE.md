@@ -192,3 +192,12 @@ YYYY-MM-DD - [Task/Feature] - [Brief Description]
 - All code changes should be reflected in the log with specific file names and function details
 - Documentation updates should reference the corresponding CLAUDE.md modifications
 - Log entries should be concise yet comprehensive enough for other developers to understand progress
+
+### OCR Enhancement - UI Element Detection
+2026-11-17 - OCR UI Element Detection - Enhanced screen_ocr.py with UI element detection capabilities
+- Extended ScreenOCR class in voice_commander/core/actions/screen_ocr.py with new methods:
+  * find_all_text_on_screen() - finds all text or specific text on screen with coordinates and bounding boxes
+  * find_ui_elements() - searches for UI elements by their labels (buttons, field names)
+- Added functionality to search for button labels and field names using OCR
+- Implemented coordinate calculation from OCR results to identify UI element locations
+- Updated CLAUDE.md with documentation of new features
