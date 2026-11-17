@@ -101,6 +101,15 @@ class Feedback:
         """
         self.logger.error(message)
 
+    def debug(self, message):
+        """
+        Log a debug message.
+
+        Args:
+            message (str): Message to log
+        """
+        self.logger.debug(message)
+
     def confirm(self, message, feedback=None):
         """
         Request confirmation from the user.

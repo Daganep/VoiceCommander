@@ -6,7 +6,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 
-def setup_logger(log_file="logs/app.log", max_bytes=10*1024*1024, backup_count=5):
+def setup_logger(log_file="logs/voice_commander.log", max_bytes=10*1024*1024, backup_count=5):
     """
     Set up the logger with file rotation.
 
@@ -27,9 +27,9 @@ def setup_logger(log_file="logs/app.log", max_bytes=10*1024*1024, backup_count=5
 
     # Prevent adding handlers multiple times
     if not logger.handlers:
-        # Create formatter
+        # Create formatter with more detailed information
         formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
         )
 
         # File handler with rotation

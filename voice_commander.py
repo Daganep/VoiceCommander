@@ -20,9 +20,10 @@ try:
     from core.speech.tts import get_tts_instance
     from core.commands.parser import CommandParser
     from core.feedback import Feedback
-    from core.logger import get_logger
+    from core.logger import setup_logger
+    from core.error_handler import ErrorHandler
 
-    logger = get_logger(__name__)
+    logger = setup_logger()
 
 except ImportError as e:
     print(f"Failed to import required modules: {e}")
@@ -38,6 +39,8 @@ class VoiceCommander:
         self.parser = None
         self.feedback = None
         self.is_running = False
+        self.tray_icon = None
+        self.error_handler = ErrorHandler(logger)
 
     def initialize(self):
         """Initialize all components."""
@@ -52,7 +55,8 @@ class VoiceCommander:
             logger.info("Voice Commander initialized successfully")
 
         except Exception as e:
-            logger.error(f"Failed to initialize Voice Commander: {e}")
+            error_details = self.error_handler.handle_exception(
+                e, "initialization", should_exit=True)
             raise
 
     def handle_command(self, text: str):
@@ -80,8 +84,10 @@ class VoiceCommander:
                 self.feedback.speak_and_log("Не понял, повторите")
 
         except Exception as e:
-            logger.error(f"Error processing command '{text}': {e}")
-            self.feedback.speak_and_log("Произошла ошибка при выполнении команды")
+            error_details = self.error_handler.handle_exception(
+                e, "command processing")
+            # Try to recover from the error
+            self.error_handler.recover_from_error(error_details)
 
     def voice_loop(self):
         """
@@ -118,19 +124,39 @@ class VoiceCommander:
             logger.info("Voice command loop interrupted by user")
             self.feedback.speak_and_log("Завершение работы")
         except Exception as e:
-            logger.error(f"Error in voice loop: {e}")
+            error_details = self.error_handler.handle_exception(
+                e, "voice loop", should_exit=True)
             raise
+
+    def start_tray_icon(self):
+        """Start the system tray icon."""
+        try:
+            from core.tray import TrayIcon
+            self.tray_icon = TrayIcon(self)
+            # Run the tray icon in a separate thread
+            tray_thread = threading.Thread(target=self.tray_icon.run, daemon=True)
+            tray_thread.start()
+            logger.info("System tray icon started")
+        except ImportError as e:
+            logger.error(f"Failed to import tray module: {e}")
+            print("Warning: Could not start system tray icon. Install pystray for tray functionality.")
 
     def start(self):
         """Start the Voice Commander application."""
         try:
             self.initialize()
+
+            # Start the system tray icon
+            self.start_tray_icon()
+
+            # Start the main voice loop in a separate thread
             self.is_running = True
-            self.voice_loop()
+            voice_thread = threading.Thread(target=self.voice_loop, daemon=True)
+            voice_thread.start()
 
         except Exception as e:
-            logger.error(f"Failed to start Voice Commander: {e}")
-            self.feedback.speak_and_log("Ошибка при запуске системы")
+            error_details = self.error_handler.handle_exception(
+                e, "main application start", should_exit=True)
             raise
 
 def main():

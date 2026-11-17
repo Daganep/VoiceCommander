@@ -158,9 +158,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 - [x] Test user interaction with confirmations
 
 ### 8.3 User experience improvements
-- [ ] Add tray icon (pystray) for start/stop functionality
-- [ ] Implement graceful error handling and recovery
-- [ ] Add comprehensive logging for debugging
+- [x] Add tray icon (pystray) for start/stop functionality
+- [x] Implement graceful error handling and recovery
+- [x] Add comprehensive logging for debugging
 
 ## 9. Documentation and Packaging
 
