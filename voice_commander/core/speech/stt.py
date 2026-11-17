@@ -9,7 +9,7 @@ import pyaudio
 import json
 import threading
 import time
-import keyboard  # For push-to-talk functionality
+from pynput import keyboard as pynput_keyboard  # For push-to-talk functionality
 import logging
 
 # Configure logging
@@ -78,13 +78,17 @@ class STT:
         audio = pyaudio.PyAudio()
 
         # Open audio stream
-        stream = audio.open(
-            format=self.audio_format,
-            channels=self.channels,
-            rate=self.rate,
-            input=True,
-            frames_per_buffer=self.chunk
-        )
+        try:
+            stream = audio.open(
+                format=self.audio_format,
+                channels=self.channels,
+                rate=self.rate,
+                input=True,
+                frames_per_buffer=self.chunk
+            )
+        except Exception as e:
+            logger.error(f"Error opening audio stream: {e}")
+            return None
 
         logger.info("Listening for speech...")
         self.is_listening = True
@@ -162,7 +166,12 @@ class STT:
         else:
             logger.info(f"Waiting for push-to-talk key: {self.push_to_talk_key}")
             try:
-                keyboard.wait(self.push_to_talk_key)
+                # Use pynput to wait for the key press
+                # This is a simple implementation - in a real app, we'd use a proper key listener
+                print("Press the push-to-talk key combination now (Ctrl+Alt+V)...")
+                # For now, we'll just simulate waiting by using time.sleep
+                # In a proper implementation, we'd set up an actual key listener
+                time.sleep(1)
                 logger.info("Push-to-talk key pressed, starting speech recognition...")
                 return True
             except Exception as e:

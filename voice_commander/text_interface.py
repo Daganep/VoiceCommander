@@ -9,10 +9,10 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from core.commands.parser import CommandParser
-from core.feedback import speak_and_log
-from core.logger import get_logger
+from core.feedback import Feedback
+from core.logger import setup_logger
 
-logger = get_logger(__name__)
+logger = setup_logger()
 
 def main():
     """Main text interface for testing commands."""
@@ -22,13 +22,14 @@ def main():
     print("-" * 40)
 
     parser = CommandParser()
+    feedback = Feedback()
 
     while True:
         try:
             command_text = input("Введите команду: ").strip()
 
             if command_text.lower() in ['quit', 'exit']:
-                speak_and_log("Завершение работы")
+                feedback.speak_and_log("Завершение работы")
                 break
 
             if command_text.lower() == 'help':
@@ -47,21 +48,21 @@ def main():
                 continue
 
             if command_text:
-                # Parse and execute the command
-                result = parser.parse_command(command_text)
+                # Parse and execute the command with feedback system
+                result = parser.parse_command(command_text, feedback)
 
                 if result:
-                    speak_and_log(f"Выполнено: {result['message']}")
+                    feedback.speak_and_log(f"Выполнено: {result['message']}")
                 else:
                     logger.warning(f"Unknown command: {command_text}")
-                    speak_and_log("Не понял, повторите")
+                    feedback.speak_and_log("Не понял, повторите")
 
         except KeyboardInterrupt:
             print("\nЗавершение работы")
             break
         except Exception as e:
             logger.error(f"Error in text interface: {e}")
-            speak_and_log("Произошла ошибка")
+            feedback.speak_and_log("Произошла ошибка")
 
 if __name__ == "__main__":
     main()

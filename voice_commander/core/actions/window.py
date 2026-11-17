@@ -34,7 +34,13 @@ class WindowManager:
                 }
             else:
                 # Minimize the active window
-                app = Application(backend="uia").connect(handle=pywinauto.findwindows.find_elements(active_only=True)[0].handle)
+                active_windows = pywinauto.findwindows.find_elements(active_only=True)
+                if not active_windows:
+                    return {
+                        'success': False,
+                        'message': 'No active window found to minimize'
+                    }
+                app = Application(backend="uia").connect(handle=active_windows[0].handle)
                 window = app.top_window()
                 window.minimize()
                 return {
@@ -69,7 +75,13 @@ class WindowManager:
                 }
             else:
                 # Maximize the active window
-                app = Application(backend="uia").connect(handle=pywinauto.findwindows.find_elements(active_only=True)[0].handle)
+                active_windows = pywinauto.findwindows.find_elements(active_only=True)
+                if not active_windows:
+                    return {
+                        'success': False,
+                        'message': 'No active window found to maximize'
+                    }
+                app = Application(backend="uia").connect(handle=active_windows[0].handle)
                 window = app.top_window()
                 window.maximize()
                 return {
@@ -104,7 +116,13 @@ class WindowManager:
                 }
             else:
                 # Bring the active window to front
-                app = Application(backend="uia").connect(handle=pywinauto.findwindows.find_elements(active_only=True)[0].handle)
+                active_windows = pywinauto.findwindows.find_elements(active_only=True)
+                if not active_windows:
+                    return {
+                        'success': False,
+                        'message': 'No active window found to bring to front'
+                    }
+                app = Application(backend="uia").connect(handle=active_windows[0].handle)
                 window = app.top_window()
                 window.set_focus()
                 return {
@@ -269,7 +287,12 @@ class WindowManager:
         try:
             # Find all visible windows
             windows = pywinauto.findwindows.find_elements(visible_only=True)
-            window_titles = [window.text for window in windows if window.text]
+            window_titles = []
+            for window in windows:
+                # Use 'name' attribute instead of 'text' which doesn't exist on HwndElementInfo
+                title = getattr(window, 'name', None)
+                if title and title.strip():
+                    window_titles.append(title)
 
             return {
                 'success': True,

@@ -53,3 +53,12 @@ def get_logger(name: str):
         logger.addHandler(file_handler)
 
     return logger
+
+def setup_logger():
+    """
+    Setup and configure the main logger for the application.
+
+    Returns:
+        logging.Logger: Configured logger instance
+    """
+    return get_logger(__name__)

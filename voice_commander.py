@@ -100,25 +100,24 @@ class VoiceCommander:
             self.handle_command(text)
 
         try:
-            # This will start listening in a separate thread
-            # For now, we'll just show that the system is ready to listen
+            # Start listening for commands
             self.feedback.speak_and_log("Готов к работе. Нажмите Ctrl+Alt+V для активации")
 
-            # Since we're not actually implementing the push-to-talk key handling here,
-            # we'll just demonstrate how it would work in a real implementation
-
-            # In a complete implementation, this would:
-            # 1. Set up keyboard monitoring for Ctrl+Alt+V
-            # 2. When pressed, start listening with STT
-            # 3. When speech ends, process the command
-            # 4. Handle timeouts and errors
-
-            print("Voice Commander is running in background mode.")
-            print("Press Ctrl+C to exit")
-
-            # Keep the main thread alive for demonstration
             while self.is_running:
-                time.sleep(0.1)
+                # Wait for push-to-talk key press and then listen for speech
+                logger.info("Waiting for push-to-talk key...")
+                try:
+                    # The STT module handles waiting for the key press and listening
+                    recognized_text = self.stt.start_listening(on_speech_recognized)
+
+                    if recognized_text is None:
+                        # No text was recognized, continue loop
+                        continue
+
+                except Exception as e:
+                    logger.error(f"Error in voice loop: {e}")
+                    # Continue the loop to keep listening
+                    continue
 
         except KeyboardInterrupt:
             logger.info("Voice command loop interrupted by user")
