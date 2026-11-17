@@ -1,3 +1,1 @@
-- [Development Plan](development_plan.md) — The complete development plan for the Voice Commander project, including all milestones and tasks.
-- [Development Log](development_log.md) — Detailed log of all development work completed, with timestamps and descriptions of each task.
-- [README](README.md) — Project overview and usage documentation.
+- [Development Plan Update](development_plan_update.md) — Updated development plan to mark confirmation prompts tasks as completed

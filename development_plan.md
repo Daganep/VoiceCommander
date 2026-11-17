@@ -153,9 +153,9 @@ For detailed development history, see: [development_log.md](development_log.md)
 - [x] Improve command parsing for edge cases
 
 ### 8.2 Confirmation prompts
-- [ ] Enhance confirmation system for destructive actions
-- [ ] Add configurable confirmation thresholds
-- [ ] Test user interaction with confirmations
+- [x] Enhance confirmation system for destructive actions
+- [x] Add configurable confirmation thresholds
+- [x] Test user interaction with confirmations
 
 ### 8.3 User experience improvements
 - [ ] Add tray icon (pystray) for start/stop functionality

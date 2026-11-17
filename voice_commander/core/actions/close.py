@@ -4,6 +4,7 @@ Process termination functionality.
 
 import psutil
 from ..apps.processes import ProcessManager
+from ..config import get_config
 
 class Closer:
     """Close applications and processes."""
@@ -30,6 +31,13 @@ class Closer:
                     'success': False,
                     'message': 'Application name required for closing'
                 }
+
+            # Check if confirmations are enabled in config
+            confirmations_enabled = get_config('confirmations', True)
+
+            # If confirmation is disabled, skip the confirmation step
+            if not confirmations_enabled:
+                confirm = False
 
             # Try to close the application by name
             closed_processes = self.process_manager.terminate_process_by_name(app_name)

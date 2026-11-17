@@ -9,6 +9,7 @@ from ..actions.window import WindowManager
 from ..actions.ui_type import UITyper
 from ..actions.ui_click import UIClicker
 from ..feedback import speak_and_log
+from ..config import get_config
 
 class CommandExecutor:
     """Execute commands by mapping them to their action implementations."""
@@ -40,7 +41,9 @@ class CommandExecutor:
 
             elif command_type == 'close':
                 app_name = params.get('app_name', None)
-                return self.closer.close_application(app_name)
+                # Get confirmation setting from config
+                confirmations_enabled = get_config('confirmations', True)
+                return self.closer.close_application(app_name, confirm=confirmations_enabled)
 
             elif command_type == 'minimize':
                 window_title = params.get('window_title', None)

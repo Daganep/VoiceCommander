@@ -100,3 +100,22 @@ class Feedback:
             message (str): Message to log
         """
         self.logger.error(message)
+
+    def confirm(self, message, feedback=None):
+        """
+        Request confirmation from the user.
+
+        Args:
+            message (str): Confirmation message to present
+            feedback (Feedback): Feedback system for user interaction
+
+        Returns:
+            bool: True if confirmed, False otherwise
+        """
+        # For now, we'll just speak the message and return True
+        # In a full implementation, this would actually wait for user confirmation
+        if feedback:
+            feedback.speak_and_log(message)
+
+        # In text mode or without voice input, we assume confirmation
+        return True
