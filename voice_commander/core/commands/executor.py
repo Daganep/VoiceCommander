@@ -6,6 +6,8 @@ This module maps command types to their corresponding action implementations.
 from ..actions.launch import Launcher
 from ..actions.close import Closer
 from ..actions.window import WindowManager
+from ..actions.ui_type import UITyper
+from ..actions.ui_click import UIClicker
 from ..feedback import speak_and_log
 
 class CommandExecutor:
@@ -16,6 +18,8 @@ class CommandExecutor:
         self.launcher = Launcher()
         self.closer = Closer()
         self.window_manager = WindowManager()
+        self.ui_typer = UITyper()
+        self.ui_clicker = UIClicker()
 
     def execute_command(self, command_type, params):
         """
@@ -51,20 +55,12 @@ class CommandExecutor:
 
             elif command_type == 'click':
                 element_text = params.get('element_text', '')
-                # Note: UI click functionality is not fully implemented yet
-                return {
-                    'success': False,
-                    'message': 'UI click functionality not yet implemented'
-                }
+                return self.ui_clicker.click_element(element_text)
 
             elif command_type == 'type_text':
                 element_text = params.get('element_text', '')
                 text_to_type = params.get('text_to_type', '')
-                # Note: UI typing functionality is not fully implemented yet
-                return {
-                    'success': False,
-                    'message': 'UI typing functionality not yet implemented'
-                }
+                return self.ui_typer.type_into_field(element_text, text_to_type)
 
             elif command_type == 'read_screen':
                 region = params.get('region', None)

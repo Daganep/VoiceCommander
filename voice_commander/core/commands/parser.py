@@ -83,9 +83,32 @@ class CommandParser:
             # This is a placeholder - more sophisticated parsing would be needed
             params['window_title'] = None
 
-        elif command_def['type'] in ['click', 'type_text']:
+        elif command_def['type'] == 'click':
             # For UI interaction commands, extract element text
             params['element_text'] = text
+
+        elif command_def['type'] == 'type_text':
+            # For type text commands, we need to parse the element text and the text to type
+            # Extract "ввести в [поле] текст [текст]" pattern
+            if 'ввести' in text and 'текст' in text:
+                # Split by "ввести" and "текст"
+                parts = text.split('ввести')
+                if len(parts) > 1:
+                    element_part = parts[1].split('текст')
+                    if len(element_part) > 1:
+                        params['element_text'] = element_part[0].strip()
+                        params['text_to_type'] = element_part[1].strip()
+                    else:
+                        # Fallback - just get the text after "ввести"
+                        params['element_text'] = parts[1].strip()
+                        params['text_to_type'] = ''
+                else:
+                    params['element_text'] = ''
+                    params['text_to_type'] = ''
+            else:
+                # If we can't parse it properly, use the whole text
+                params['element_text'] = text
+                params['text_to_type'] = ''
 
         elif command_def['type'] == 'read_screen':
             # For screen reading, we might extract region information

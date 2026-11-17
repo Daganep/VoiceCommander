@@ -86,6 +86,16 @@ OCR-related code is split between:
 - `core/actions/screen_ocr.py`: Screen reading functionality
 - `core/actions/ui_click.py` and `core/actions/ui_type.py`: UI interaction using OCR
 
+### Command Usage Examples
+The application supports the following voice commands:
+- Launch applications: "Запусти блокнот", "Открой браузер"
+- Close applications: "Закрой приложение", "Закройте браузер"
+- Window management: "Сверни окно", "Разверни окно", "Переведи окно в фокус"
+- UI interaction:
+  - Click elements: "Кликни OK button"
+  - Type text into fields: "Введи в поле имя текст john_doe"
+- Screen reading: "Прочти текст с экрана"
+
 ## Development Workflow
 
 The development follows a staged approach outlined in `development_plan.md`:
@@ -158,6 +168,15 @@ The UI click functionality can be used in voice commands to:
 - Navigate through applications using OCR to locate UI elements
 
 The system first attempts an exact match for the element text, and if not found, tries to find similar text to provide better user experience.
+
+## UI Type Usage Examples
+
+The UI type functionality can be used in voice commands to:
+- Type text into fields identified by their labels (e.g., "Type into username field text john_doe")
+- Fill out forms with voice commands
+- Automate data entry tasks through voice interaction
+
+The system uses OCR to locate the target UI field and then types the specified text using pyautogui.
 
 ## Configuration
 
