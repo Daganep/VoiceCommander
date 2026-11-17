@@ -150,6 +150,15 @@ The TTS integration is located in `core/speech/tts.py` and follows the project's
 4. Testing with various UI elements and screen layouts
 5. Edge case testing for OCR ambiguity resolution
 
+## UI Click Usage Examples
+
+The UI click functionality can be used in voice commands to:
+- Click buttons identified by their text labels (e.g., "Click OK button")
+- Interact with dialog boxes and windows
+- Navigate through applications using OCR to locate UI elements
+
+The system first attempts an exact match for the element text, and if not found, tries to find similar text to provide better user experience.
+
 ## Configuration
 
 The application uses YAML configuration in `config.yaml` to control:
@@ -200,4 +209,12 @@ YYYY-MM-DD - [Task/Feature] - [Brief Description]
   * find_ui_elements() - searches for UI elements by their labels (buttons, field names)
 - Added functionality to search for button labels and field names using OCR
 - Implemented coordinate calculation from OCR results to identify UI element locations
+- Updated CLAUDE.md with documentation of new features
+
+### UI Click Implementation
+2026-11-17 - UI Click Functionality - Implemented ui_click.py module for clicking UI elements
+- Created UIClicker class in voice_commander/core/actions/ui_click.py
+- Implemented click_element() method that uses OCR to locate and click on UI elements by text
+- Added error handling for missing UI elements with fallback to approximate matching
+- Integrated with existing OCR system and pyautogui for mouse actions
 - Updated CLAUDE.md with documentation of new features
