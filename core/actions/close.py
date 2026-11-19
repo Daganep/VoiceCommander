@@ -9,7 +9,7 @@ from typing import Optional
 from core.feedback import speak_and_log
 from core.logger import get_logger
 from core.apps.processes import ProcessManager
-from core.config import get_config
+from voice_commander.core.config import get_config
 
 logger = get_logger(__name__)
 

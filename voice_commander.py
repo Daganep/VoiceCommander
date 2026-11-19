@@ -76,8 +76,15 @@ class VoiceCommander:
             result = self.parser.parse_command(text)
 
             if result:
-                # Provide feedback about the result
-                self.feedback.speak_and_log(f"Выполнено: {result['message']}")
+                # Check if this is a confirmation required case
+                if result.get('needs_confirmation', False):
+                    # For confirmation needed, we don't want to repeat the command
+                    # The user will need to say it again to confirm
+                    logger.info("Command requires confirmation - waiting for user input")
+                    self.feedback.speak_and_log(result['message'])
+                else:
+                    # Provide feedback about the result
+                    self.feedback.speak_and_log(f"Выполнено: {result['message']}")
             else:
                 # Unknown command
                 logger.warning(f"Unknown command: {text}")
