@@ -49,7 +49,7 @@ def main():
 
             if command_text:
                 # Parse and execute the command with feedback system
-                result = parser.parse_command(command_text, feedback)
+                result = parser.parse_command(command_text)
 
                 if result:
                     feedback.speak_and_log(f"Выполнено: {result['message']}")

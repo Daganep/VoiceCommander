@@ -9,7 +9,7 @@ from ..actions.window import WindowManager
 from ..actions.ui_type import UITyper
 from ..actions.ui_click import UIClicker
 from ..feedback import speak_and_log
-from ..config import get_config
+from ..core.config import get_config
 
 class CommandExecutor:
     """Execute commands by mapping them to their action implementations."""

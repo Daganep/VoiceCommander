@@ -19,15 +19,15 @@ class CommandParser:
         self.command_schemas = CommandSchema.get_all_schemas()
         logger.info(f"Initialized command parser with {len(self.command_schemas)} command schemas")
 
-    def parse_command(self, text: str) -> Optional['Command']:
+    def parse_command(self, text: str) -> Optional[dict]:
         """
-        Parse a natural language command into a Command object.
+        Parse a natural language command into a Command object and execute it.
 
         Args:
             text (str): The command text to parse
 
         Returns:
-            Optional[Command]: Parsed command object or None if unrecognized
+            Optional[dict]: Execution result or None if unrecognized
         """
         if not text or not isinstance(text, str):
             return None
@@ -39,7 +39,10 @@ class CommandParser:
             pattern = schema.pattern
             if re.match(pattern, text):
                 logger.info(f"Matched command pattern: {pattern}")
-                return Command(schema, text)
+                # Create and execute the command
+                command = Command(schema, text)
+                result = command.execute()
+                return {"message": result}
 
         logger.warning(f"No matching command pattern found for: {text}")
         return None

@@ -73,7 +73,7 @@ class VoiceCommander:
             logger.info(f"Processing command: '{text}'")
 
             # Parse and execute the command with feedback system
-            result = self.parser.parse_command(text, self.feedback)
+            result = self.parser.parse_command(text)
 
             if result:
                 # Provide feedback about the result
